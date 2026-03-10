@@ -22,11 +22,18 @@ app.get('/convert', (req, res) => {
     } else if (to === "usd") {
         from = "inr";
         output = amount / USD_RATE;
+
+    } else {
+        return res.status(400).json({
+            message: "Invalid currency. Use 'usd' or 'inr'"
+        });
     }
 
     return res.json({
-        from: amount,
-        to: output,
+        from_currency: from,
+        input_amount: amount,
+        to_currency: to,
+        converted_amount: output
     });
 
 });
